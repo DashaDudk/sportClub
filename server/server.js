@@ -120,21 +120,19 @@ app.delete('/trainers/:id', (req, res) => {
   res.json({ success: true })
 })
 
-// ==== ВІДПРАВЛЕНІ ЗАЯВКИ (submissions) ====
-app.get('/submissions', (req, res) => {
+app.get('/requests', (req, res) => {
   const db = readDB()
-  res.json(db.submissions || [])
+  res.json(db.requests || [])
 })
 
-app.post('/submissions', (req, res) => {
+app.post('/requests', (req, res) => {
   const db = readDB()
-  const newSubmission = { ...req.body, id: Date.now() }
-  db.submissions.push(newSubmission)
+  const newRequest = { ...req.body, id: Date.now() }
+  db.requests.push(newRequest)
   writeDB(db)
-  res.json(newSubmission)
+  res.json(newRequest)
 })
 
-// ==== Запуск сервера ====
 app.listen(PORT, () => {
-  console.log(`✅ Сервер запущено на http://localhost:${PORT}`)
+  console.log(` Сервер запущено на http://localhost:${PORT}`)
 })

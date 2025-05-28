@@ -10,8 +10,7 @@
           :key="section.id"
           class="section-card"
         >
-          <h3 class="section-name">{{ section.name }}</h3>
-          <p class="section-description">{{ section.description }}</p>
+          <p class="sections-title">{{ section.title }}</p>    
           <router-link
             :to="`/section/${section.id}`"
             class="section-link"
@@ -64,7 +63,7 @@ const scrollRight = () => {
 .sections-title {
   font-size: 2rem;
   font-weight: 700;
-  color: var(--hover-bg);
+  color: #46656F;
   margin-bottom: 2rem;
   text-align: center;
 }
@@ -118,13 +117,6 @@ const scrollRight = () => {
   transform: translateY(-4px);
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
   border-color: var(--header-bg);
-}
-
-.section-name {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--header-bg);
-  margin-bottom: 0.75rem;
 }
 
 .section-description {

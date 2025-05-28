@@ -76,8 +76,8 @@ const filteredTrainers = computed(() => {
 onMounted(async () => {
   try {
     const [sectionsRes, trainersRes] = await Promise.all([
-      fetch('http://localhost:3000/sections.json'),
-      fetch('http://localhost:3000/trainers.json')
+      fetch('http://localhost:3000/sections'),
+      fetch('http://localhost:3000/trainers')
     ])
 
     const sectionsData = await sectionsRes.json()

@@ -1,90 +1,36 @@
 {
   "sections": [
     {
-      "title": "stretching",
-      "description": "kruto",
-      "hall": "luxury",
+      "title": "волейбол",
+      "description": "гра",
+      "hall": "футбольний",
       "prices": {
-        "group": "10",
-        "individual": "20",
-        "halfYear": "30"
+        "group": "1000",
+        "individual": "2000",
+        "halfYear": "10000"
       },
       "coachIds": [
-        null
+        1748451522928
       ],
-      "id": 1748451522913
+      "isExpanded": false,
+      "id": 1748469541295
     },
     {
-      "title": "",
-      "description": "",
-      "hall": "",
+      "title": "сав",
+      "description": "футбол",
+      "hall": "в",
       "prices": {
-        "group": "",
-        "individual": "",
-        "halfYear": ""
+        "group": "уцв",
+        "individual": "вус",
+        "halfYear": "вуіс"
       },
-      "coachIds": [],
-      "id": 1748459774845
-    },
-    {
-      "title": "",
-      "description": "",
-      "hall": "",
-      "prices": {
-        "group": "",
-        "individual": "",
-        "halfYear": ""
-      },
-      "coachIds": [],
-      "id": 1748459793108
-    },
-    {
-      "title": "",
-      "description": "",
-      "hall": "",
-      "prices": {
-        "group": "",
-        "individual": "",
-        "halfYear": ""
-      },
-      "coachIds": [],
-      "id": 1748459793115
-    },
-    {
-      "title": "",
-      "description": "",
-      "hall": "",
-      "prices": {
-        "group": "",
-        "individual": "",
-        "halfYear": ""
-      },
-      "coachIds": [],
-      "id": 1748459793128
-    },
-    {
-      "title": "",
-      "description": "",
-      "hall": "",
-      "prices": {
-        "group": "",
-        "individual": "",
-        "halfYear": ""
-      },
-      "coachIds": [],
-      "id": 1748459793141
-    },
-    {
-      "title": "",
-      "description": "",
-      "hall": "",
-      "prices": {
-        "group": "",
-        "individual": "",
-        "halfYear": ""
-      },
-      "coachIds": [],
-      "id": 1748459793154
+      "coachIds": [
+        1748451522928,
+        1748466716964,
+        1748470084814
+      ],
+      "isExpanded": true,
+      "id": 1748470064226
     }
   ],
   "trainers": [
@@ -92,7 +38,22 @@
       "name": "natalia",
       "experience": "1 day",
       "photo": "http://localhost:3000/uploads/file-1748451522863-927679374.jpeg",
-      "id": 1748451522928
+      "id": 1748451522928,
+      "isExpanded": false
+    },
+    {
+      "name": "даша",
+      "experience": "6 років",
+      "photo": "http://localhost:3000/uploads/file-1748466716937-363352035.jpg",
+      "isExpanded": false,
+      "id": 1748466716964
+    },
+    {
+      "name": "маша",
+      "experience": "6 років",
+      "photo": "http://localhost:3000/uploads/file-1748470090820-771040627.jpg",
+      "isExpanded": true,
+      "id": 1748470084814
     }
   ],
   "requests": []

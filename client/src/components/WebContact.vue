@@ -1,25 +1,59 @@
 <template>
   <div class="contact-form-container" id="contact">
     <h2 class="section-title">Контакти</h2>
-    <form class="contact-form">
-      <input type="tel" placeholder="Ваш номер телефону" class="form-input" />
-      <input type="email" placeholder="Ваш Email" class="form-input" />
+    <form class="contact-form" @submit.prevent="handleSubmit">
+      <input
+        type="tel"
+        id="phone"
+        name="phone"
+        v-model="formData.phone"
+        placeholder="Ваш номер телефону"
+        class="form-input"
+      />
+      <input
+        type="email"
+        id="email"
+        name="email"
+        v-model="formData.email"
+        placeholder="Ваш Email"
+        class="form-input"
+      />
 
-      <select class="form-input">
-        <option disabled selected>Оберіть секцію</option>
-        <option v-for="section in sections" :key="section.id">
-          {{ section.name }}
+      <select
+        id="section"
+        name="section"
+        v-model="formData.section"
+        class="form-input"
+      >
+        <option disabled value="">Оберіть секцію</option>
+        <option v-for="section in sections" :key="section.id" :value="section.title">
+          {{ section.title }}
         </option>
       </select>
 
-      <select class="form-input">
-        <option disabled selected>Оберіть тренера</option>
-        <option v-for="trainer in trainers" :key="trainer.id">
+      <select
+        id="trainer"
+        name="trainer"
+        v-model="formData.trainer"
+        class="form-input"
+      >
+        <option disabled value="">Оберіть тренера</option>
+        <option
+          v-for="trainer in filteredTrainers"
+          :key="trainer.id"
+          :value="trainer.name"
+        >
           {{ trainer.name }}
         </option>
       </select>
 
-      <textarea placeholder="Додатковий коментар" class="form-textarea"></textarea>
+      <textarea
+        id="comment"
+        name="comment"
+        v-model="formData.comment"
+        placeholder="Додатковий коментар"
+        class="form-textarea"
+      ></textarea>
 
       <button type="submit" class="form-button">
         Надіслати
@@ -29,23 +63,65 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import axios from 'axios'
 
 const sections = ref([])
 const trainers = ref([])
 
+const formData = ref({
+  phone: '',
+  email: '',
+  section: '',
+  trainer: '',
+  comment: ''
+})
+
+const filteredTrainers = computed(() => {
+  const selectedSection = sections.value.find(s => s.title === formData.value.section)
+  if (!selectedSection) return []
+  return trainers.value.filter(tr => selectedSection.coachIds.includes(tr.id))
+})
+
 onMounted(async () => {
   try {
-    const sectionsRes = await axios.get('http://localhost:3000/sections.json')
+    const sectionsRes = await axios.get('http://localhost:3000/sections')
     sections.value = sectionsRes.data
 
-    const trainersRes = await axios.get('http://localhost:3000/trainers.json')
+    const trainersRes = await axios.get('http://localhost:3000/trainers')
     trainers.value = trainersRes.data
   } catch (error) {
     console.error('Помилка при завантаженні даних:', error)
   }
 })
+
+const handleSubmit = async () => {
+  if (
+    !formData.value.phone ||
+    !formData.value.email ||
+    !formData.value.section ||
+    !formData.value.trainer
+  ) {
+    alert('Будь ласка, заповніть усі обовʼязкові поля.')
+    return
+  }
+
+  try {
+    await axios.post('http://localhost:3000/contacts', formData.value)
+    alert('Форма успішно відправлена!')
+
+    formData.value = {
+      phone: '',
+      email: '',
+      section: '',
+      trainer: '',
+      comment: ''
+    }
+  } catch (error) {
+    console.error('Помилка при збереженні даних:', error)
+    alert('Виникла помилка при відправці форми.')
+  }
+}
 </script>
 
 <style scoped>
