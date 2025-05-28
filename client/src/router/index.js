@@ -1,13 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MainPage from '../views/MainPage.vue'
 import SectionDetails from '../views/SectionDetails.vue'
-import Media from '../views/WebMedia.vue'
 import AdminPanel from '../views/AdminPanel.vue'
 
 const routes = [
   { path: '/', component: MainPage },
   { path: '/section/:id', component: SectionDetails },
-  { path: '/media', component: Media },
   { path: '/admin', component: AdminPanel },
 ]
 

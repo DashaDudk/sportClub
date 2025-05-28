@@ -1,0 +1,99 @@
+{
+  "sections": [
+    {
+      "title": "stretching",
+      "description": "kruto",
+      "hall": "luxury",
+      "prices": {
+        "group": "10",
+        "individual": "20",
+        "halfYear": "30"
+      },
+      "coachIds": [
+        null
+      ],
+      "id": 1748451522913
+    },
+    {
+      "title": "",
+      "description": "",
+      "hall": "",
+      "prices": {
+        "group": "",
+        "individual": "",
+        "halfYear": ""
+      },
+      "coachIds": [],
+      "id": 1748459774845
+    },
+    {
+      "title": "",
+      "description": "",
+      "hall": "",
+      "prices": {
+        "group": "",
+        "individual": "",
+        "halfYear": ""
+      },
+      "coachIds": [],
+      "id": 1748459793108
+    },
+    {
+      "title": "",
+      "description": "",
+      "hall": "",
+      "prices": {
+        "group": "",
+        "individual": "",
+        "halfYear": ""
+      },
+      "coachIds": [],
+      "id": 1748459793115
+    },
+    {
+      "title": "",
+      "description": "",
+      "hall": "",
+      "prices": {
+        "group": "",
+        "individual": "",
+        "halfYear": ""
+      },
+      "coachIds": [],
+      "id": 1748459793128
+    },
+    {
+      "title": "",
+      "description": "",
+      "hall": "",
+      "prices": {
+        "group": "",
+        "individual": "",
+        "halfYear": ""
+      },
+      "coachIds": [],
+      "id": 1748459793141
+    },
+    {
+      "title": "",
+      "description": "",
+      "hall": "",
+      "prices": {
+        "group": "",
+        "individual": "",
+        "halfYear": ""
+      },
+      "coachIds": [],
+      "id": 1748459793154
+    }
+  ],
+  "trainers": [
+    {
+      "name": "natalia",
+      "experience": "1 day",
+      "photo": "http://localhost:3000/uploads/file-1748451522863-927679374.jpeg",
+      "id": 1748451522928
+    }
+  ],
+  "requests": []
+}

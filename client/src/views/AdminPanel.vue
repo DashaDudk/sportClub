@@ -1,9 +1,6 @@
 <template>
   <div class="p-6 max-w-6xl mx-auto bg-[#D9D6C7] min-h-screen text-[#403332] font-sans transition-all duration-300">
-    <router-link
-      to="/"
-      class="inline-block mb-6 px-4 py-2 bg-[#A67B56] hover:bg-[#8c6344] text-white font-semibold rounded shadow transition"
-    >
+    <router-link to="/" class="inline-block mb-6 px-4 py-2 bg-[#A67B56] hover:bg-[#8c6344] text-white font-semibold rounded shadow transition">
       ← На головну
     </router-link>
 
@@ -16,22 +13,15 @@
       <div>
         <h2 class="text-2xl font-semibold mb-4">Секції</h2>
         <transition-group name="fade" tag="div">
-          <div
-            v-for="(section, index) in sections"
-            :key="section.id"
-            class="p-4 mb-4 rounded shadow bg-[#f4f1e6] transition-all duration-300"
-          >
+          <div v-for="(section, index) in sections" :key="section.id" class="p-4 mb-4 rounded shadow bg-[#f4f1e6] transition-all duration-300">
             <label class="block mb-1 font-semibold">Тренери:</label>
             <select v-model="section.coachIds" multiple class="input h-28">
-              <option v-for="trainer in trainers" :key="trainer.id" :value="trainer.id">
-                {{ trainer.name }}
-              </option>
+              <option v-for="trainer in trainers" :key="trainer.id" :value="trainer.id">{{ trainer.name }}</option>
             </select>
 
             <input v-model="section.title" class="input" placeholder="Назва секції" />
             <textarea v-model="section.description" class="input" placeholder="Опис секції"></textarea>
             <input v-model="section.hall" class="input" placeholder="Зал (назва)" />
-            <input v-model="section.hallImage" class="input" placeholder="Зображення залу (URL)" />
 
             <div class="grid grid-cols-3 gap-2 my-2">
               <input v-model="section.prices.group" class="input" placeholder="Групові" />
@@ -45,49 +35,48 @@
           </div>
         </transition-group>
 
-        <button @click="addSection" class="btn bg-green-600 hover:bg-green-700 text-white mt-2">
-           Додати секцію
-        </button>
+        <button @click="addSection" class="btn bg-green-600 hover:bg-green-700 text-white mt-2">Додати секцію</button>
+      </div>
+
+      <!-- Тренери -->
+      <div>
+        <h2 class="text-2xl font-semibold mb-4">Тренери</h2>
+        <transition-group name="fade" tag="div">
+          <div v-for="(trainer, index) in trainers" :key="trainer.id" class="p-4 mb-4 rounded shadow bg-[#f4f1e6] transition-all duration-300">
+            <input v-model="trainer.name" class="input" placeholder="Ім'я тренера" />
+            <input v-model="trainer.experience" class="input" placeholder="Досвід (наприклад, 5 років)" />
+
+            <label class="block mb-1 font-semibold">Фото тренера:</label>
+            <input type="file" @change="onFileChange($event, trainer)" />
+            <img v-if="trainer.photo" :src="trainer.photo" alt="Фото" class="w-24 h-24 object-cover rounded mb-2 border" />
+
+            <button @click="removeTrainer(index)" class="btn bg-red-500 hover:bg-red-600 text-white mt-2">✖ Видалити тренера</button>
+          </div>
+        </transition-group>
+        <button @click="addTrainer" class="btn bg-green-600 hover:bg-green-700 text-white mt-2">Додати тренера</button>
       </div>
     </div>
-      <!-- Тренери -->
-    <div>
-  <h2 class="text-2xl font-semibold mb-4">Тренери</h2>
-  <transition-group name="fade" tag="div">
-    <div
-      v-for="(trainer, index) in trainers"
-      :key="trainer.id"
-      class="p-4 mb-4 rounded shadow bg-[#f4f1e6] transition-all duration-300"
-    >
-      <input v-model="trainer.name" class="input" placeholder="Ім'я тренера" />
-      <input v-model="trainer.experience" class="input" placeholder="Досвід (наприклад, 5 років)" />
 
-      <label class="block mb-1 font-semibold">Фото тренера:</label>
-      <input type="file" @change="handleImageUpload($event, trainer)" class="mb-2" />
-      <img v-if="trainer.photo" :src="trainer.photo" alt="Фото" class="w-24 h-24 object-cover rounded mb-2 border" />
-
-      <button @click="removeTrainer(index)" class="btn bg-red-500 hover:bg-red-600 text-white mt-2">
-        ✖ Видалити тренера
-      </button>
-    </div>
-  </transition-group>
-  <button @click="addTrainer" class="btn bg-green-600 hover:bg-green-700 text-white mt-2">
-    Додати тренера
-  </button>
-</div>
-
-    <!-- Зберегти -->
     <div class="text-center mt-10">
-      <button
-        @click="saveAll"
-        class="btn bg-[#403332] hover:bg-[#2d2423] text-white px-8 py-3 rounded shadow-lg text-lg transition"
-      >
-         Зберегти всі дані
-      </button>
+      <button @click="saveAll" class="btn bg-[#403332] hover:bg-[#2d2423] text-white px-8 py-3 rounded shadow-lg text-lg transition">Зберегти всі дані</button>
     </div>
+
+    <div>
+  <h2 class="text-2xl font-semibold mb-4">Заявки від користувачів</h2>
+  <div v-if="requests.length === 0">Немає нових заявок</div>
+  <ul>
+    <li v-for="req in requests" :key="req.id" class="p-3 mb-2 bg-[#f0e8d0] rounded shadow">
+      <p><b>Телефон:</b> {{ req.phone }}</p>
+      <p><b>Email:</b> {{ req.email }}</p>
+      <p><b>Секція:</b> {{ req.section }}</p>
+      <p><b>Тренер:</b> {{ req.trainer }}</p>
+      <p><b>Коментар:</b> {{ req.comment || 'Немає' }}</p>
+      <p><b>Дата:</b> {{ new Date(req.date).toLocaleString() }}</p>
+    </li>
+  </ul>
+</div>
   </div>
 </template>
-
 
 <script setup>
 import { ref, onMounted } from 'vue'
@@ -95,15 +84,16 @@ import axios from 'axios'
 
 const sections = ref([])
 const trainers = ref([])
+const requests = ref([])
 
+// Завантаження секцій і тренерів з db.json (json-server)
 onMounted(async () => {
   try {
     const [secRes, trRes] = await Promise.all([
-      axios.get('http://localhost:3000/sections.json'),
-      axios.get('http://localhost:3000/trainers.json')
+      axios.get('http://localhost:3000/sections'),
+      axios.get('http://localhost:3000/trainers')
     ])
-    // Страхуємо від помилок структури
-    sections.value = secRes.data.map((s) => ({
+    sections.value = secRes.data.map(s => ({
       ...s,
       prices: s.prices ?? { group: '', individual: '', halfYear: '' },
       coachIds: s.coachIds ?? []
@@ -115,13 +105,20 @@ onMounted(async () => {
   }
 })
 
+onMounted(async () => {
+  try {
+    const res = await axios.get('http://localhost:3000/requests')
+    requests.value = res.data
+  } catch (error) {
+    console.error(error)
+  }
+})
+
 const addSection = () => {
   sections.value.push({
-    id: Date.now(),
     title: '',
     description: '',
     hall: '',
-    hallImage: '',
     prices: { group: '', individual: '', halfYear: '' },
     coachIds: []
   })
@@ -132,32 +129,61 @@ const removeSection = (index) => {
 }
 
 const addTrainer = () => {
-  trainers.value.push({ id: Date.now(), name: '', experience: '', photo: '' })
+  trainers.value.push({ name: '', experience: '', photo: '' })
 }
 
 const removeTrainer = (index) => {
   trainers.value.splice(index, 1)
 }
 
+// Map для збереження файлів, які завантажує користувач
+const trainerFiles = new Map()
+
+function onFileChange(event, trainer) {
+  const file = event.target.files[0]
+  if (file) {
+    trainerFiles.set(trainer, file)
+
+    // Прев’ю фото локально
+    const reader = new FileReader()
+    reader.onload = e => {
+      trainer.photo = e.target.result
+    }
+    reader.readAsDataURL(file)
+  }
+}
+
 const saveAll = async () => {
   try {
+    // Завантажуємо фото тренерів (якщо є)
+    for (const trainer of trainers.value) {
+      if (trainerFiles.has(trainer)) {
+        const file = trainerFiles.get(trainer)
+        const formData = new FormData()
+        formData.append('file', file)
+        const res = await axios.post('http://localhost:3000/upload', formData, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        })
+        trainer.photo = res.data.url
+      }
+    }
+
+    // Зберігаємо секції (PUT для існуючих, POST для нових)
     for (const section of sections.value) {
-      if (typeof section.id === 'number') {
-        // Існуючий елемент — оновлення
+      if (section.id) {
         await axios.put(`http://localhost:3000/sections/${section.id}`, section)
       } else {
-        // Новий елемент — створення
-        const res = await axios.post(`http://localhost:3000/sections`, section)
-        // оновити id в локальному масиві
+        const res = await axios.post('http://localhost:3000/sections', section)
         section.id = res.data.id
       }
     }
 
+    // Зберігаємо тренерів (PUT для існуючих, POST для нових)
     for (const trainer of trainers.value) {
-      if (typeof trainer.id === 'number') {
+      if (trainer.id) {
         await axios.put(`http://localhost:3000/trainers/${trainer.id}`, trainer)
       } else {
-        const res = await axios.post(`http://localhost:3000/trainers`, trainer)
+        const res = await axios.post('http://localhost:3000/trainers', trainer)
         trainer.id = res.data.id
       }
     }
@@ -167,17 +193,6 @@ const saveAll = async () => {
     console.error('Помилка збереження:', error)
     alert('❌ Помилка при збереженні: ' + error.message)
   }
-}
-
-const handleImageUpload = (event, trainer) => {
-  const file = event.target.files[0]
-  if (!file) return
-
-  const reader = new FileReader()
-  reader.onload = () => {
-    trainer.photo = reader.result // base64 string
-  }
-  reader.readAsDataURL(file)
 }
 </script>
 
@@ -217,5 +232,4 @@ const handleImageUpload = (event, trainer) => {
   opacity: 0;
   transform: translateY(20px);
 }
-
 </style>

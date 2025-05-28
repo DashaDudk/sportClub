@@ -6,19 +6,17 @@
 
     <nav class="nav-items">
       <ul>
-        <li><a href="#home" class="menu-item">Головна</a></li>
-        <li><a href="#sections" class="menu-item">Секції</a></li>
-        <li><a href="#media" class="menu-item" @click.prevent="scrollToMedia">Медіа</a></li>
-        <li><a href="#contact" class="menu-item">Контакти</a></li>
-        <li><a href="#faq" class="menu-item">FAQ</a></li>
+         <li><a href="#home" class="menu-item" @click.prevent="scrollTo('home')">Головна</a></li>
+        <li><a href="#sections" class="menu-item" @click.prevent="scrollTo('sections')">Секції</a></li>
+        <li><a href="#media" class="menu-item" @click.prevent="scrollTo('media')">Медіа</a></li>
+        <li><a href="#contact" class="menu-item" @click.prevent="scrollTo('contact')">Контакти</a></li>
+        <li><a href="#faq" class="menu-item" @click.prevent="scrollTo('faq')">FAQ</a></li>
       </ul>
     </nav>
 
-    <!-- Кнопка для відкриття модального вікна -->
     <button class="admin-button" @click="showLogin = true">Адмін</button>
   </header>
 
-  <!-- 🟦 Модальне вікно -->
   <div v-if="showLogin" class="modal-overlay">
     <div class="modal-box">
       <h2 class="modal-title">Вхід адміністратора</h2>
@@ -35,7 +33,6 @@
 
   <main class="page-content">
     <section id="home">
-      <h1>Ласкаво просимо на ActiveLife</h1>
       <!-- решта контенту -->
     </section>
 
@@ -69,10 +66,11 @@ const successMessage = ref('')
 
 const router = useRouter()
 
-const scrollToMedia = () => {
-  setTimeout(() => {
-    document.getElementById('media')?.scrollIntoView({ behavior: 'smooth' });
-  }, 100)
+const scrollTo = (id) => {
+  const element = document.getElementById(id)
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' })
+  }
 }
 
 const login = () => {
@@ -85,11 +83,9 @@ const login = () => {
       successMessage.value = ''
       username.value = ''
       password.value = ''
-      // Зберігаємо стан авторизації (наприклад, в localStorage)
       localStorage.setItem('isAdmin', 'true')
-      // Перенаправляємо на адмін-панель
       router.push('/admin')
-    }, 1000) // Затримка 1 секунда, щоб показати повідомлення
+    }, 1000) 
   } else {
     error.value = 'Неправильний логін або пароль'
     successMessage.value = ''
@@ -97,26 +93,25 @@ const login = () => {
 }
 </script>
 
-
-<style scoped>
+<style>
 @import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Montserrat+Alternates:wght@400;600&display=swap');
 
 :root {
-  --main-dark: #1F2E29;
-  --accent: #98A69A;
-  --muted: #697368;
-  --deep-dark: #17211B;
-  --almost-black: #0D0909;
+  --main-bg: #D8DFE5;
+  --header-bg: #8FABB7;
+  --text-light: #FBFBFB;
+  --hover-bg: #46656F;
 }
 
 body {
-  background-color: var(--main-dark);
-  color: var(--accent);
+  background-color: var(--main-bg);
+  color: var(--text-light);
   font-family: 'Montserrat Alternates', sans-serif;
+  margin: 0;
 }
 
 .header {
-  background-color: var(--deep-dark);
+  background-color: var(--header-bg);
   height: 108px;
   position: fixed;
   top: 0;
@@ -128,35 +123,25 @@ body {
   justify-content: space-between;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   z-index: 1000;
-}
-
-.admin-button {
-  margin-left: 20px;
-  padding: 6px 12px;
-  background-color: var(--almost-black);
-  color: var(--accent);
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.admin-button:hover {
-  background-color: var(--muted);
-  color: var(--deep-dark);
+  transition: all 0.3s ease;
 }
 
 .logo {
   display: flex;
-  gap: 15px;
   align-items: center;
+  gap: 15px;
 }
 
 .logo-span {
   font-family: 'Libre Caslon Display', serif;
-  color: var(--accent);
+  color: var(--text-light);
   font-size: 40px;
   cursor: default;
+  transition: transform 0.3s ease;
+}
+
+.logo-span:hover {
+  transform: scale(1.05);
 }
 
 .nav-items {
@@ -168,22 +153,22 @@ body {
   display: flex;
   gap: 60px;
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 
 .menu-item {
-  font-family: 'Montserrat Alternates', sans-serif;
-  color: var(--accent);
+  color: var(--text-light);
   text-decoration: none;
   font-size: 18px;
-  transition: color 0.3s ease, transform 0.2s ease;
-  cursor: pointer;
   position: relative;
+  transition: color 0.3s ease, background-color 0.3s ease, transform 0.2s ease;
+  padding: 8px 12px;
+  border-radius: 6px;
 }
 
 .menu-item:hover {
-  color: var(--muted);
+  background-color: var(--hover-bg);
   transform: scale(1.05);
 }
 
@@ -194,7 +179,7 @@ body {
   bottom: -4px;
   width: 0;
   height: 2px;
-  background-color: var(--accent);
+  background-color: var(--text-light);
   transition: width 0.3s ease;
 }
 
@@ -202,12 +187,33 @@ body {
   width: 100%;
 }
 
-.page-content {
-  padding-top: 108px;
-  background-color: var(--main-dark);
-  color: var(--accent);
+.admin-button {
+  margin-left: 20px;
+  padding: 6px 12px;
+  background-color: var(--hover-bg);
+  color: var(--text-light);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  font-family: 'Montserrat Alternates', sans-serif;
 }
 
+.admin-button:hover {
+  background-color: var(--text-light);
+  color: var(--hover-bg);
+  transform: translateY(-1px);
+}
+
+.page-content {
+  padding-top: 108px;
+  background-color: var(--main-bg);
+  color: var(--hover-bg);
+  transition: padding-top 0.3s ease;
+}
+
+/* Модальне вікно */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -215,54 +221,66 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 1001;
 }
 
 .modal-box {
-  background: var(--deep-dark);
+  background-color: var(--header-bg);
   padding: 2rem;
-  border-radius: 12px;
+  border-radius: 16px;
   width: 320px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   text-align: center;
-  color: var(--accent);
+  color: var(--text-light);
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .modal-title {
-  font-size: 1.4rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  margin-bottom: 1.2rem;
 }
 
 .modal-input {
   width: 100%;
   padding: 0.5rem;
   margin-bottom: 0.8rem;
-  border: 1px solid var(--muted);
-  border-radius: 8px;
+  border: 1px solid var(--hover-bg);
+  border-radius: 10px;
+  background-color: var(--main-bg);
+  color: var(--hover-bg);
   font-size: 1rem;
-  background-color: var(--main-dark);
-  color: var(--accent);
 }
 
 .modal-button {
-  background-color: var(--muted);
-  color: var(--main-dark);
+  background-color: var(--hover-bg);
+  color: var(--text-light);
   padding: 0.6rem 1rem;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   width: 100%;
   font-size: 1rem;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .modal-button:hover {
-  background-color: var(--accent);
-  color: var(--almost-black);
+  background-color: var(--text-light);
+  color: var(--hover-bg);
 }
 
 .modal-error {
-  color: red;
+  color: #ff6b6b;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.modal-success {
+  color: #122e40;
   font-size: 0.9rem;
   margin-top: 0.5rem;
 }
@@ -271,11 +289,17 @@ body {
   margin-top: 1rem;
   background: none;
   border: none;
-  color: var(--muted);
+  color: var(--hover-bg);
   font-size: 0.9rem;
   cursor: pointer;
+  transition: color 0.2s ease;
 }
 
+.modal-cancel:hover {
+  color: var(--text-light);
+}
+
+/* Адаптивність */
 @media (max-width: 768px) {
   .header {
     flex-direction: column;
@@ -287,10 +311,15 @@ body {
     flex-direction: column;
     gap: 20px;
     align-items: center;
+    margin-top: 10px;
   }
 
   .logo-span {
     font-size: 30px;
+  }
+
+  .admin-button {
+    margin-top: 15px;
   }
 
   .page-content {
@@ -298,4 +327,7 @@ body {
   }
 }
 </style>
+
+
+
 
