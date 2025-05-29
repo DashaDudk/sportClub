@@ -107,7 +107,7 @@ const handleSubmit = async () => {
   }
 
   try {
-    await axios.post('http://localhost:3000/contacts', formData.value)
+    await axios.post('http://localhost:3000/requests', formData.value)
     alert('Форма успішно відправлена!')
 
     formData.value = {
@@ -192,6 +192,7 @@ const handleSubmit = async () => {
   font-family: 'Montserrat Alternates';
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
+  z-index: 999;
 }
 
 .form-button:hover {
@@ -200,7 +201,6 @@ const handleSubmit = async () => {
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
 }
-
 
 select {
   appearance: none;

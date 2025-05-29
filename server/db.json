@@ -1,13 +1,13 @@
 {
   "sections": [
     {
-      "title": "волейбол",
+      "title": "бокс",
       "description": "гра",
-      "hall": "футбольний",
+      "hall": "боксерський",
       "prices": {
-        "group": "1000",
-        "individual": "2000",
-        "halfYear": "10000"
+        "group": "1000 грн/міс",
+        "individual": "2000 грн/міс",
+        "halfYear": "10000 грн"
       },
       "coachIds": [
         1748451522928
@@ -16,45 +16,83 @@
       "id": 1748469541295
     },
     {
-      "title": "сав",
-      "description": "футбол",
-      "hall": "в",
+      "title": "силові тренування",
+      "description": "",
+      "hall": "тренажерний ",
       "prices": {
-        "group": "уцв",
-        "individual": "вус",
-        "halfYear": "вуіс"
+        "group": "700 грн/міс",
+        "individual": "1500 грн/міс",
+        "halfYear": "7500 грн"
       },
       "coachIds": [
-        1748451522928,
         1748466716964,
         1748470084814
       ],
-      "isExpanded": true,
+      "isExpanded": false,
       "id": 1748470064226
+    },
+    {
+      "title": "басейн",
+      "description": "великий басейн",
+      "hall": "плавальний басейн",
+      "prices": {
+        "group": "200 грн/міс",
+        "individual": "700 грн/міс",
+        "halfYear": "3000 грн"
+      },
+      "coachIds": [
+        1748476758216
+      ],
+      "isExpanded": true,
+      "id": 1748476758165
     }
   ],
   "trainers": [
     {
-      "name": "natalia",
-      "experience": "1 day",
-      "photo": "http://localhost:3000/uploads/file-1748451522863-927679374.jpeg",
+      "name": "Іван Петренко",
+      "experience": "3 роки",
+      "photo": "http://localhost:3000/uploads/file-1748473581178-231076980.jpg",
       "id": 1748451522928,
       "isExpanded": false
     },
     {
-      "name": "даша",
+      "name": "Максим Іваненко",
       "experience": "6 років",
-      "photo": "http://localhost:3000/uploads/file-1748466716937-363352035.jpg",
+      "photo": "http://localhost:3000/uploads/file-1748476088539-629429898.jpg",
       "isExpanded": false,
       "id": 1748466716964
     },
     {
-      "name": "маша",
-      "experience": "6 років",
-      "photo": "http://localhost:3000/uploads/file-1748470090820-771040627.jpg",
-      "isExpanded": true,
+      "name": "Марина Хоменко",
+      "experience": "2 років",
+      "photo": "http://localhost:3000/uploads/file-1748476088557-468678347.jpg",
+      "isExpanded": false,
       "id": 1748470084814
+    },
+    {
+      "name": "Олександра Шевченко",
+      "experience": "4 роки",
+      "photo": "http://localhost:3000/uploads/file-1748476758125-783713951.jpg",
+      "isExpanded": true,
+      "id": 1748476758216
     }
   ],
-  "requests": []
+  "requests": [
+    {
+      "phone": "+380 999999999",
+      "email": "dashad61@ukr.net",
+      "section": "бокс",
+      "trainer": "Іван Петренко",
+      "comment": "g",
+      "id": 1748474829223
+    },
+    {
+      "phone": "hghj",
+      "email": "dashad61@ukr.net",
+      "section": "сав",
+      "trainer": "даша",
+      "comment": "hjk",
+      "id": 1748475055228
+    }
+  ]
 }

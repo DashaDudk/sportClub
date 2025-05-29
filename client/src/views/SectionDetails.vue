@@ -1,62 +1,63 @@
 <template>
-  <div class="p-6 max-w-4xl mx-auto" v-if="section">
-    <h1 class="text-3xl font-bold text-[#593a28] mb-6">{{ section.name }}</h1>
+  <div class="section-container" v-if="section">
+    <h1 class="section-title">{{ section.name }}</h1>
 
-    <!-- Фото залу -->
-    <img v-if="section.hallImage" :src="section.hallImage" alt="Зал" class="mt-4 w-full max-h-80 object-cover rounded shadow" />
+    <img
+      v-if="section.hallImage"
+      :src="section.hallImage"
+      alt="Зал"
+      class="hall-image"
+    />
 
-    <!-- Інформація про зал -->
-    <div class="mt-6">
-      <h2 class="text-2xl font-semibold text-[#0d0000] mb-2">Зал</h2>
-      <p class="text-gray-700">{{ section.hall }}</p>
+    <div class="section-block">
+      <h2 class="block-title">Зал</h2>
+      <p class="block-text">{{ section.hall }}</p>
     </div>
 
-    <!-- Таблиця цін -->
-    <div class="mt-6">
-      <h2 class="text-2xl font-semibold text-[#0d0000] mb-2">Ціни</h2>
-      <table class="table-auto mt-2 w-full border text-left">
+    <div class="section-block">
+      <h2 class="block-title">Ціни</h2>
+      <table class="price-table">
         <thead>
-          <tr class="bg-gray-200">
-            <th class="px-4 py-2 border">Тип</th>
-            <th class="px-4 py-2 border">Ціна</th>
+          <tr>
+            <th>Тип</th>
+            <th>Ціна</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="px-4 py-2 border">Групові</td>
-            <td class="px-4 py-2 border">{{ section.prices.group }}</td>
+            <td>Групові</td>
+            <td>{{ section.prices.group }}</td>
           </tr>
           <tr>
-            <td class="px-4 py-2 border">Індивідуальні</td>
-            <td class="px-4 py-2 border">{{ section.prices.individual }}</td>
+            <td>Індивідуальні</td>
+            <td>{{ section.prices.individual }}</td>
           </tr>
           <tr>
-            <td class="px-4 py-2 border">Піврічні</td>
-            <td class="px-4 py-2 border">{{ section.prices.halfYear }}</td>
+            <td>Піврічні</td>
+            <td>{{ section.prices.halfYear }}</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- Тренери -->
-    <div class="mt-6">
-      <h2 class="text-2xl font-semibold text-[#0d0000] mb-4">Тренери</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="section-block">
+      <h2 class="block-title">Тренери</h2>
+      <div class="trainers-grid">
         <div
           v-for="trainer in filteredTrainers"
           :key="trainer.id"
-          class="border rounded p-4 shadow"
+          class="trainer-card"
         >
-          <img :src="trainer.photo" class="h-40 w-full object-cover rounded mb-2" />
-          <h3 class="font-bold text-lg">{{ trainer.name }}</h3>
-          <p class="text-sm text-gray-600">Досвід: {{ trainer.experience }}</p>
-          <p class="text-sm mt-2">{{ trainer.advantages }}</p>
+          <img :src="trainer.photo" class="trainer-photo" />
+          <h3 class="trainer-name">{{ trainer.name }}</h3>
+          <p class="trainer-experience">Досвід: {{ trainer.experience }}</p>
+          <p class="trainer-advantages">{{ trainer.advantages }}</p>
         </div>
       </div>
     </div>
   </div>
 
-  <div v-else class="text-center p-6">Секція не знайдена.</div>
+  <div v-else class="not-found">Секція не знайдена.</div>
 </template>
 
 
@@ -94,3 +95,179 @@ onMounted(async () => {
   }
 })
 </script>
+
+<style scoped>
+.section-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: linear-gradient(to bottom right, #FBFBFB, #D8DFE5);
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(70, 101, 111, 0.2);
+  animation: fadeIn 0.8s ease;
+}
+
+.section-title {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #46656F;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  animation: slideDown 0.6s ease;
+}
+
+.hall-image {
+  width: 100%;
+  max-width: 600px;
+  max-height: 320px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(70, 101, 111, 0.15);
+  margin: 1.5rem auto;
+  display: block;
+  animation: fadeIn 1s ease;
+}
+
+.section-block {
+  margin-top: 2rem;
+  animation: fadeUp 0.6s ease;
+}
+
+.block-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #46656F;
+  margin-bottom: 0.8rem;
+}
+
+.block-text {
+  color: #8FABB7;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.price-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #FBFBFB;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(70, 101, 111, 0.1);
+}
+
+.price-table th,
+.price-table td {
+  padding: 0.8rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #D8DFE5;
+  color: #46656F;
+}
+
+.price-table th {
+  background-color: #8FABB7;
+  color: #FBFBFB;
+  font-weight: 600;
+}
+
+.trainers-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .trainers-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.trainer-card {
+  background-color: #FBFBFB;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 16px rgba(70, 101, 111, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeUp 0.5s ease;
+  color: #46656F;
+}
+
+.trainer-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(70, 101, 111, 0.25);
+}
+
+.trainer-photo {
+  height: 160px;
+  width: 100%;
+  max-width: 280px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 0.8rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.trainer-name {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #46656F;
+  text-align: center;
+}
+
+.trainer-experience {
+  font-size: 0.9rem;
+  color: #8FABB7;
+  margin-top: 0.2rem;
+  text-align: center;
+}
+
+.trainer-advantages {
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+  color: #46656F;
+  text-align: center;
+}
+
+.not-found {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.3rem;
+  color: #8FABB7;
+  animation: fadeIn 0.8s ease;
+}
+
+/* Анімації */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    transform: translateY(15px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+</style>
